@@ -10,4 +10,4 @@ kramdown:
   syntax_highlighter: rouge
  
 
-theme: jekyll-theme-dinky
+remote_theme: pmarsceill/just-the-docs
