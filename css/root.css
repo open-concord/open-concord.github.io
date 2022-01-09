@@ -1,11 +1,12 @@
 body {
-	background-color: #1D201F
+	background-color: #1D201F;
+	justify-content: center;
 }
 
 h1 {
-	color: #D1DEDE
+	color: #D1DEDE;
 }
 
 p1 {
-	color: #DF928E
+	color: #DF928E;
 }
