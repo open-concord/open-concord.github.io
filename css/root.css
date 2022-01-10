@@ -8,6 +8,7 @@ html {
 body {
 	background-color: #1D201F;
 	font-family: monospace;
+	color: #EAD2AC;
 }
 
 /** scrollbar */
@@ -75,8 +76,8 @@ body {
 
 /** FAQ */
 .header {
-		color: #D1DEDE;
-		font-size: 24px;
+	color: #D1DEDE;
+	font-size: 24px;
 }
 
 .faq {
@@ -92,6 +93,6 @@ body {
 	color: #D1DEDE;
 }
 
-p1 {
-	color: #EAD2AC;
+a {
+	color: #DF928E
 }
