@@ -7,4 +7,9 @@ author: The Authors
 This is a test.
 
 **Math Test**
-$$ \ln x = \int_{-\infty}^x \frac 1 y \, dy $$
+
+
+*block:* $$ \ln x = \int_{-\infty}^x \frac 1 y \, dy $$
+
+*inline:* let $x\approx{\lceil z - y \rceil}$
+
