@@ -1,13 +1,18 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid (mappend)
-import           Hakyll
+import Data.Monoid (mappend)
+import Data.Typeable
 
+-- latex
+import           Text.Pandoc.Options
 
+import Hakyll
 --------------------------------------------------------------------------------
+
+-- so that it exports to the correct folder
 config::Configuration
 config = defaultConfiguration {
-  destinationDirectory = "../root/wiki/"
+  destinationDirectory = "../docs/wiki/"
 }
 
 main :: IO ()
@@ -20,40 +25,19 @@ main = hakyllWith config $ do
         route   idRoute
         compile compressCssCompiler
 
-    match (fromList ["about.rst", "contact.markdown"]) $ do
-        route   $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
-
-    match "posts/*" $ do
+    match "items/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
+        compile $ pandocMathCompiler
+            >>= loadAndApplyTemplate "templates/item.html"    iCtx
+            >>= loadAndApplyTemplate "templates/default.html" iCtx
             >>= relativizeUrls
-
-    create ["archive.html"] $ do
-        route idRoute
-        compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
-            let archiveCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Archives"            `mappend`
-                    defaultContext
-
-            makeItem ""
-                >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
-                >>= loadAndApplyTemplate "templates/default.html" archiveCtx
-                >>= relativizeUrls
-
 
     match "index.html" $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+            items <- recentFirst =<< loadAll "items/*"
             let indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
+                    listField "items" iCtx (return items) `mappend`
                     defaultContext
 
             getResourceBody
@@ -63,9 +47,17 @@ main = hakyllWith config $ do
 
     match "templates/*" $ compile templateBodyCompiler
 
-
 --------------------------------------------------------------------------------
-postCtx :: Context String
-postCtx =
-    dateField "date" "%B %e, %Y" `mappend`
+iCtx::Context String
+iCtx =
     defaultContext
+
+pandocMathCompiler =
+    let mathExtensions    = extensionsFromList [Ext_tex_math_dollars, Ext_tex_math_double_backslash, Ext_latex_macros]
+        defaultExtensions = writerExtensions defaultHakyllWriterOptions
+        newExtensions     = defaultExtensions <> mathExtensions
+        writerOptions     = defaultHakyllWriterOptions {
+                              writerExtensions = newExtensions,
+                              writerHTMLMathMethod = MathJax ""
+                            }
+    in pandocCompilerWith defaultHakyllReaderOptions writerOptions

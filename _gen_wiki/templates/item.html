@@ -1,8 +1,10 @@
 <article>
     <section class="header">
-        Posted on $date$
+        $if(date)$
+          ~/$date$
+        $endif$
         $if(author)$
-            by $author$
+          - $author$
         $endif$
     </section>
     <section>
