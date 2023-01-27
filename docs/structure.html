@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>cncrd/struct</title>
+		<link href="css/root.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="content">
+		<div class="bar">
+      <h3 class="header">Struct</h3>
+      <sep>/<sep>
+      <h3 class="header"><a href="http://git.openconcord.org">Git</a></h3>
+      <sep>/<sep>
+      <h3 class="header"><a href="index.html">~/</a></h3>
+    </div>
+    <i>This document pertains to the structure of Concord implementations. For implementation agnostic standards, see <a href="http://git.openconcord.org/std">std</a></i>
+    <hr><br>
+    <p> We provide a set of libraries to expedite the process of creation:</p>
+    <ul>
+      <li><a href="http://git.openconcord.org/core">Core</a>, the core tree and graph abstraction</li>
+      <li><a href="http://git.openconcord.org/uttu">Uttu</a>, a p2p networking library</li>
+      <li><a href="http://git.openconcord.org/tamuz">Tamuz</a>, an HME implementation.</li>
+    </ul>
+    <p>These libraries provide base functionality, and allow you to participate in concord. In order to actually interpret and produce meaningful information on concord, you need to use interpretive protocols.</p>
+    <p> These range from networking protocols, to exchange protocols, to more arbitrary protocols, such as messaging, file sharing, voice calls, ectera. OpenConcord maintains a subset of these protocols, which can be found in <a href="http://git.openconcord.org/proto">proto</a>.</p>
+    <p> Generally, implementions will be organised in such a fashion: Networking -&gt; (Storage &lt;-&gt; PoW) -&gt; Content Protocol. It's that simple!</p>
+	</body>
+</html>
